@@ -38,3 +38,54 @@ borderElements.forEach((element) => {
         }, 2000); // update every 5 seconds
       }, 0)
 }); // start the interval after 0ms (i.e., immediately)
+
+
+
+
+
+
+const portfolioH2 = document.querySelector('.portfolio h2');
+const inspirationH2 = document.querySelector('.inspiration h2');
+const informationH2 = document.querySelector('.information h2');
+
+const sections = document.querySelectorAll('.portfolio,.inspiration,.information');
+
+portfolioH2.addEventListener('click', (e) => {
+  toggleSection(e.target.parentNode);
+});
+
+inspirationH2.addEventListener('click', (e) => {
+  toggleSection(e.target.parentNode);
+});
+
+informationH2.addEventListener('click', (e) => {
+  toggleSection(e.target.parentNode);
+});
+
+function toggleSection(section) {
+    if (section.classList.contains('active')) {
+      section.classList.remove('active');
+      if (!document.querySelector('.section.active')) {
+        sections.forEach((s) => {
+          s.classList.remove('hidden');
+          s.querySelector('span').classList.remove('hidden');
+        });
+      } else {
+        sections.forEach((s) => {
+          if (s !== section) {
+            s.classList.add('hidden');
+            s.querySelector('span').classList.remove('hidden');
+          }
+        });
+      }
+    } else {
+      sections.forEach((s) => {
+        s.classList.remove('active');
+        s.classList.add('hidden');
+        s.querySelector('span').classList.remove('hidden');
+      });
+      section.classList.add('active');
+      section.classList.remove('hidden');
+      section.querySelector('span').classList.remove('hidden');
+    }
+  }

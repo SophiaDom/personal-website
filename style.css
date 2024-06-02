@@ -131,11 +131,17 @@ h1 {
 .portfolio h2, .inspiration h2, .information h2{
     margin-top: 55px;
     text-align: center;
+    /* color:white; */
 }
 
-.portfolio:hover,.inspiration:hover,.information:hover,.portfolio:active,.inspiration:active,.information:active{
-    background-color: white;
-    color: black;
+.portfolio:hover,
+.inspiration:hover,
+.information:hover,
+.portfolio.active,
+.inspiration.active,
+.information.active {
+  background-color: white;
+  color: black;
 }
   
 .portfolio{
@@ -170,11 +176,67 @@ h2{
 }
 
 .content{
-    background-color:red;
+    background-color:white;
     width: calc(100vw - 110%);
     height:90vh;
     z-index: 3;
     position:absolute;
     top:0;
     left: 100%;
+}
+
+h3{
+    color:white;
+}
+
+.portfolio span,
+.inspiration span,
+.information span {
+    display: none;
+}
+
+.active span {
+    display: block;
+}
+
+.portfolio.hidden,
+.inspiration.hidden,
+.information.hidden {
+  visibility: hidden;
+}
+
+.portfolio.hidden span,
+.inspiration.hidden span,
+.information.hidden span {
+  visibility: visible;
+}
+
+.portfolio span,
+.inspiration span,
+.information span{
+    font-family: 'teko', sans-serif;
+    margin-top: 20vh;
+    text-align:center;
+    text-transform:uppercase;
+}
+
+.portfolio span h3:hover,
+.portfolio span h3:active,
+.inspiration span h3:hover,
+.inspiration span h3:active,
+.information span h3:hover,
+.information span h3:active{
+    letter-spacing: .5em;
+}
+
+.inspiration span{
+    margin-top: -40vh
+}
+
+.information span{
+    margin-top:-62vh;
+}
+
+.lower{
+    margin-top:42vh;
 }
