@@ -1,5 +1,6 @@
 body{
-    overflow:hidden;
+    /* overflow:hidden; */
+    overflow-x:hidden;
 }
 
 .teko-title {
@@ -176,14 +177,109 @@ h2{
 }
 
 .content{
-    background-color:white;
-    width: calc(100vw - 110%);
+    /* background-color:white; */
+    width: calc(100vw - 130%);
     height:90vh;
     z-index: 3;
     position:absolute;
     top:0;
     left: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-gap: 10px;
+    overflow-x: hidden; /* prevent horizontal scrolling */
+    }
+
+.card {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 10px;/* add this to center the card content */
+    max-width: 100%;
+    position: relative; /* added */
+
 }
+
+.card-title {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 1;
+  }
+  
+  /* Add this new rule to target video cards specifically */
+  .card video {
+    position: relative; /* make video a positioning context */
+  }
+  
+  .card video + .card-title {
+    top: 30%;
+    left:35%; /* adjust top position to account for video controls */
+  }
+
+.card img, .card video{
+    height: auto;
+    width:200px;
+    object-fit: cover;
+}
+
+.card h2{
+    display:none;
+    color:white;
+    font-size: 10px;
+    margin: 0;
+
+}
+
+.card:hover h2{
+    display: block;
+}
+
+  .card:hover::before { /* added */
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); /* black overlay with 70% opacity */
+    transition: opacity 0.3s; /* added transition effect */
+  }
+  
+  
+  .card:hover.card-title {
+    opacity: 1; 
+    z-index:100;/* show the title on hover */
+  }
+
+.card h2{
+    font-size: 2em;
+    z-index: 10;
+    color:white;
+    position: absolute;
+    text-align: center;
+}
+
+.card a {
+    /* make the link wrap the video */
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .video-title {
+    font-size: 18px;
+    color: #fff;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+    top: 45%;
+    left:5%;
+    width:200px;
+  }
 
 h3{
     color:white;
@@ -240,3 +336,11 @@ h3{
 .lower{
     margin-top:42vh;
 }
+
+.category {
+    cursor: pointer;
+  }
+  
+  .category.active {
+    letter-spacing: .5em;
+  }
