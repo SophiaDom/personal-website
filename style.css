@@ -344,3 +344,10 @@ h3{
   .category.active {
     letter-spacing: .5em;
   }
+
+  .inspirationH2.active + .content h3 {
+    color: #blue;
+    font-size: 22px;
+    font-weight: bold;
+    text-decoration: underline;
+  }

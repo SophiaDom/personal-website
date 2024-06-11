@@ -658,3 +658,22 @@ portfolioH2.addEventListener('click', () => {
     cards.forEach(card => card.classList.add('hidden')); // add hidden class to cards
   }
 });
+
+inspirationH2.addEventListener('click', () => {
+  inspirationH2.classList.toggle('active');
+  const contentDiv = document.querySelector('.content');
+  
+
+  if (inspirationH2.classList.contains('active')) {
+    portfolioH2.style.display = 'none';
+    informationH2.style.display = 'none';
+    const comingSoon = document.createElement('h3');
+    comingSoon.textContent = 'Coming Soon!';
+    contentDiv.appendChild(comingSoon);
+  } else {
+    portfolioH2.style.display = 'block';
+    informationH2.style.display = 'block';
+    const comingSoon = contentDiv.querySelector('h3');
+    comingSoon.remove();
+  }
+});
