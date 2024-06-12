@@ -345,9 +345,40 @@ h3{
     letter-spacing: .5em;
   }
 
-  .inspirationH2.active + .content h3 {
-    color: #blue;
-    font-size: 22px;
-    font-weight: bold;
-    text-decoration: underline;
+.content h3{
+    font-family: 'teko', sans-serif;
+    font-size: 3em;
+    width: fit-content;
+    margin:0;
+    transition: color 3s;
+}
+
+#signature-image{
+    width: 100%;
+    height: auto;
+    transform: rotate(-25deg);
+    position: absolute;
+    top: 5%;
+    left: 5%;
+    animation: fade-in-out 5s infinite alternate; /* animate the opacity for 2 seconds, infinitely, alternating between fade-in and fade-out */
+}
+
+@keyframes fade-in-out {
+    0% {
+      opacity: .15; /* start with 0 opacity */
+    }
+    50% {
+      opacity: 1; /* reach 1 opacity at the midpoint */
+    }
+    100% {
+      opacity: .15; /* end with 0 opacity */
+    }
   }
+
+  .information span h3.active {
+    letter-spacing:.5em;
+  }
+
+.content p{
+    font-family:
+}

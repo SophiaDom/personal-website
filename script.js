@@ -659,21 +659,52 @@ portfolioH2.addEventListener('click', () => {
   }
 });
 
-inspirationH2.addEventListener('click', () => {
-  inspirationH2.classList.toggle('active');
+informationH2.addEventListener('click', () => {
+  informationH2.classList.toggle('active');
   const contentDiv = document.querySelector('.content');
-  
 
-  if (inspirationH2.classList.contains('active')) {
+  if (informationH2.classList.contains('active')) {
     portfolioH2.style.display = 'none';
-    informationH2.style.display = 'none';
-    const comingSoon = document.createElement('h3');
-    comingSoon.textContent = 'Coming Soon!';
-    contentDiv.appendChild(comingSoon);
+    inspirationH2.style.display = 'none';
+    const signature = document.createElement('img');
+    signature.src = 'signature.png';
+    signature.alt = 'Sophia Dombrowski Signature';
+    signature.id = 'signature-image';
+    contentDiv.innerHTML = ''; // clear the content area
+    contentDiv.appendChild(signature);
   } else {
     portfolioH2.style.display = 'block';
-    informationH2.style.display = 'block';
-    const comingSoon = contentDiv.querySelector('h3');
-    comingSoon.remove();
+    inspirationH2.style.display = 'block';
+    contentDiv.innerHTML = ''; // clear the content area
   }
+});
+
+const infoItems = document.querySelectorAll('.information span h3');
+const contentArea = document.querySelector('.content');
+
+infoItems.forEach((item) => {
+  item.addEventListener('click', (e) => {
+    if (item.classList.contains('active')) {
+      // If the category is already active, reset the state
+      item.classList.remove('active');
+      contentArea.innerHTML = ''; // clear the content area
+      const signature = document.createElement('img');
+      signature.src = 'signature.png';
+      signature.alt = 'Sophia Dombrowski Signature';
+      signature.id = 'signature-image';
+      contentArea.appendChild(signature);
+    } else {
+      // Remove active class from all h3 elements
+      infoItems.forEach((h3) => h3.classList.remove('active'));
+      // Toggle active class on the clicked element
+      item.classList.add('active');
+      contentArea.innerHTML = ''; // clear the content area
+      // Get the info type from the clicked element
+      const infoType = item.getAttribute('data-info');
+      // Get the corresponding content using the getInfoContent function
+      const content = getInfoContent(infoType);
+      // Append the new content
+      contentArea.innerHTML = content;
+    }
+  });
 });
