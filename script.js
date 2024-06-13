@@ -207,12 +207,12 @@ const portfolioItems = [
 
   {
     'img': 'portfolio/photography/abstract.jpg',
-    'title': ' ',
+    'title': 'Abstract Photography',
     'category': ['photography'].toString()
   },
   {
     'img': 'portfolio/photography/birds.jpeg',
-    'title': ' ',
+    'title': 'Flight',
     'category': ['photography'].toString()
   },
   {
@@ -232,7 +232,7 @@ const portfolioItems = [
   },
   {
     'img': 'portfolio/photography/church.jpeg',
-    'title': ' ',
+    'title': 'Building Portraiture',
     'category': ['photography'].toString()
   },
   {
@@ -242,7 +242,7 @@ const portfolioItems = [
   },
   {
     'img': 'portfolio/photography/damos.jpeg',
-    'title': ' ',
+    'title': 'Abstract Photography',
     'category': ['photography'].toString()
   },
   {
@@ -267,27 +267,27 @@ const portfolioItems = [
   },
   {
     'img': 'portfolio/photography/hike.jpeg',
-    'title': ' ',
+    'title': 'Drowning Nature',
     'category': ['photography'].toString()
   },
   {
     'img': 'portfolio/photography/landscape.jpeg',
-    'title': ' ',
+    'title': 'Rusted Japanese Landscape',
     'category': ['photography'].toString()
   },
   {
     'img': 'portfolio/photography/leaves.jpeg',
-    'title': ' ',
+    'title': 'Layered Leaves',
     'category': ['photography'].toString()
   },
   {
     'img': 'portfolio/photography/mirror.jpg',
-    'title': ' ',
+    'title': 'Many Views',
     'category': ['photography'].toString()
   },
   {
     'img': 'portfolio/photography/pool.jpeg',
-    'title': ' ',
+    'title': 'Blue Fractals',
     'category': ['photography'].toString()
   },
   {
@@ -300,16 +300,16 @@ const portfolioItems = [
     'title': 'Product Photo',
     'category': ['photography'].toString()
   },
-  {
-    'img': 'portfolio/photography/product3.jpg',
-    'title': 'Product Photo',
-    'category': ['photography'].toString()
-  },
-  {
-    'img': 'portfolio/photography/product4.jpg',
-    'title': 'Product Photo',
-    'category': ['photography'].toString()
-  },
+  // {
+  //   'img': 'portfolio/photography/product3.jpg',
+  //   'title': 'Product Photo',
+  //   'category': ['photography'].toString()
+  // },
+  // {
+  //   'img': 'portfolio/photography/product4.jpg',
+  //   'title': 'Product Photo',
+  //   'category': ['photography'].toString()
+  // },
   {
     'img': 'portfolio/photography/shoppingcart.jpeg',
     'title': 'Abandoned Use',
@@ -684,27 +684,37 @@ const contentArea = document.querySelector('.content');
 
 infoItems.forEach((item) => {
   item.addEventListener('click', (e) => {
-    if (item.classList.contains('active')) {
-      // If the category is already active, reset the state
-      item.classList.remove('active');
-      contentArea.innerHTML = ''; // clear the content area
-      const signature = document.createElement('img');
-      signature.src = 'signature.png';
-      signature.alt = 'Sophia Dombrowski Signature';
-      signature.id = 'signature-image';
-      contentArea.appendChild(signature);
-    } else {
-      // Remove active class from all h3 elements
-      infoItems.forEach((h3) => h3.classList.remove('active'));
-      // Toggle active class on the clicked element
-      item.classList.add('active');
-      contentArea.innerHTML = ''; // clear the content area
-      // Get the info type from the clicked element
-      const infoType = item.getAttribute('data-info');
-      // Get the corresponding content using the getInfoContent function
-      const content = getInfoContent(infoType);
-      // Append the new content
-      contentArea.innerHTML = content;
-    }
+      if (item.classList.contains('active')) {
+          // If the category is already active, reset the state
+          item.classList.remove('active');
+          contentArea.innerHTML = ''; // clear the content area
+          const signature = document.createElement('img');
+          signature.src = 'signature.png';
+          signature.alt = 'Sophia Dombrowski Signature';
+          signature.id = 'signature-image';
+          contentArea.appendChild(signature);
+      } else {
+          // Remove active class from all h3 elements
+          infoItems.forEach((h3) => h3.classList.remove('active'));
+          // Toggle active class on the clicked element
+          item.classList.add('active');
+          contentArea.innerHTML = ''; // clear the content area
+          // Get the info type from the clicked element
+          const infoType = item.getAttribute('data-info');
+          if (infoType === 'resume') {
+            const resume = document.createElement('img');
+            resume.src = 'resume2024.jpg';
+            resume.alt = 'Resume 2024';
+            resume.id = 'resume';
+            contentArea.appendChild(resume);
+          
+            const downloadButton = document.createElement("button");
+            downloadButton.textContent = "Download Resume";
+            downloadButton.className = "download-button";
+            contentArea.appendChild(downloadButton);
+          }
+      }
   });
 });
+
+

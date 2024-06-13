@@ -1,6 +1,6 @@
 body{
     /* overflow:hidden; */
-    overflow-x:hidden;
+    /* overflow-x:hidden; */
 }
 
 .teko-title {
@@ -381,4 +381,36 @@ h3{
 
 .content p{
     font-family:
+}
+
+#resume{
+   height: 80vh;
+   width: auto;
+   position: absolute;
+   left: 50%;
+   bottom: 0;
+   transform: translateX(-50%);
+   filter: grayscale(100%);
+   transition: filter 0.4s ease; /* Add transition for smooth effect */
+
+}
+
+#resume:hover {
+    filter: grayscale(0%);
+}
+
+.download-button{
+    font-family: 'teko', sans-serif;
+    background-color: transparent;
+    font-size: 1.25em;
+    position: absolute;
+    top:0;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    border:white 2px solid;
+    
+}
+.download-button:hover{
+    color: #accb82;
 }
