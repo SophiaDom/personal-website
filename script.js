@@ -10,6 +10,7 @@ setTimeout(() => {
       element.addEventListener('transitionend', () => {
         element.style.display = 'none';
         topics.style.display = 'block'; // show the topics div
+        contentDiv.innerHTML = '<div id="welcome-message"> <div id="welcome"> WELCOME! </div> <br> Explore my portfolio and experience a fusion of photography, typography and interactive design.</div>';
       });
     });
     document.body.classList.add('background-fade-out');
@@ -39,29 +40,12 @@ borderElements.forEach((element) => {
       }, 0)
 }); // start the interval after 0ms (i.e., immediately)
 
-
-
-
-
-
 const portfolioH2 = document.querySelector('.portfolio h2');
 const inspirationH2 = document.querySelector('.inspiration h2');
 const informationH2 = document.querySelector('.information h2');
 const contentDiv = document.querySelector('.content');
 const sections = document.querySelectorAll('.portfolio,.inspiration,.information');
 const categoryElements = document.querySelectorAll('.category');
-
-portfolioH2.addEventListener('click', (e) => {
-  toggleSection(e.target.parentNode);
-});
-
-inspirationH2.addEventListener('click', (e) => {
-  toggleSection(e.target.parentNode);
-});
-
-informationH2.addEventListener('click', (e) => {
-  toggleSection(e.target.parentNode);
-});
 
 function toggleSection(section) {
   if (section.classList.contains('active')) {
@@ -73,10 +57,12 @@ function toggleSection(section) {
     });
     contentDiv.innerHTML = ''; // Clear the content div
     contentDiv.style.backgroundColor = ''; // Restore default background color
+    showWelcomeMessage();
+
   } else {
     // Hide all sections except the clicked one
     sections.forEach((s) => {
-      if (s !== section) {
+      if (s!== section) {
         s.classList.remove('active');
         s.classList.add('hidden');
         s.querySelector('span').classList.remove('hidden');
@@ -90,6 +76,27 @@ function toggleSection(section) {
   }
 }
 
+function showWelcomeMessage() {
+  const welcomeMessage = document.createElement('div');
+  welcomeMessage.id = 'welcome-message';
+  welcomeMessage.textContent = 'Welcome to my portfolio! Experience a fusion of photography, typography and interactive work. Enjoy!';
+  contentDiv.appendChild(welcomeMessage);
+}
+
+portfolioH2.addEventListener('click', (e) => {
+  toggleSection(e.target.parentNode);
+});
+
+inspirationH2.addEventListener('click', (e) => {
+  toggleSection(e.target.parentNode);
+});
+
+informationH2.addEventListener('click', (e) => {
+  toggleSection(e.target.parentNode);
+});
+
+// Wait for the DOM to be fully loaded before showing the welcome message
+document.addEventListener('DOMContentLoaded', showWelcomeMessage);
 
 const portfolioItems = [
   {
@@ -217,7 +224,7 @@ const portfolioItems = [
   },
   {
     'img': 'portfolio/photography/bookbarn.jpeg',
-    'title': ' ',
+    'title': 'Building Portraiture',
     'category': ['photography'].toString()
   },
   {
@@ -230,11 +237,11 @@ const portfolioItems = [
     'title': 'Mossy Deck Boards',
     'category': ['photography'].toString()
   },
-  {
-    'img': 'portfolio/photography/church.jpeg',
-    'title': 'Building Portraiture',
-    'category': ['photography'].toString()
-  },
+  // {
+  //   'img': 'portfolio/photography/church.jpeg',
+  //   'title': 'Building Portraiture',
+  //   'category': ['photography'].toString()
+  // },
   {
     'img': 'portfolio/photography/concert.jpeg',
     'title': 'Earworm',
@@ -317,17 +324,17 @@ const portfolioItems = [
   },
   {
     'img': 'portfolio/photography/stairs.jpeg',
-    'title': ' ',
+    'title': 'Stairs',
     'category': ['photography'].toString()
   },
   {
     'img': 'portfolio/photography/subway.jpeg',
-    'title': ' ',
+    'title': 'Subway Scene',
     'category': ['photography'].toString()
   },
   {
     'img': 'portfolio/photography/trees.jpeg',
-    'title': ' ',
+    'title': 'Trees',
     'category': ['photography'].toString()
   },
 
@@ -619,6 +626,24 @@ function generateCards(portfolioItems, contentDiv) {
     cardsHTML += cardHTML;
   });
   contentDiv.innerHTML = cardsHTML;
+
+  const specificCards = document.querySelectorAll('.card h2:contains("Samsara: Interior Slideshow"), .card h2:contains("Common Misconception Book Interior Slideshow")');
+  specificCards.forEach((card) => {
+    card.closest('.card').addEventListener('click', () => {
+      const iframe = document.createElement('iframe');
+      iframe.src = card.previousElementSibling.src;
+      iframe.style.width = '100%';
+      iframe.style.height = '100vh';
+      iframe.style.border = 'none';
+      iframe.style.overflow = 'hidden';
+      iframe.style.display = 'block';
+      iframe.style.margin = '0';
+      iframe.style.padding = '0';
+      document.body.appendChild(iframe);
+      document.body.style.overflow = 'hidden';
+      iframe.focus();
+    });
+  });
 }
 
 cards.forEach((card) => {
@@ -659,6 +684,28 @@ portfolioH2.addEventListener('click', () => {
   }
 });
 
+inspirationH2.addEventListener('click', () => {
+  inspirationH2.classList.toggle('active');
+  const contentDiv = document.querySelector('.content');
+
+  if (inspirationH2.classList.contains('active')) {
+    portfolioH2.style.display = 'none';
+    informationH2.style.display = 'none';
+    contentDiv.innerHTML = ''; // clear the content area
+    const comingSoonMessage = document.createElement('p');
+    comingSoonMessage.textContent = 'Coming soon...';
+    comingSoonMessage.style.fontSize = '24px';
+    comingSoonMessage.style.fontWeight = 'bold';
+    comingSoonMessage.style.textAlign = 'center';
+    comingSoonMessage.style.color = 'white';
+    contentDiv.appendChild(comingSoonMessage);
+  } else {
+    portfolioH2.style.display = 'block';
+    informationH2.style.display = 'block';
+    contentDiv.innerHTML = ''; // clear the content area
+  }
+});
+
 informationH2.addEventListener('click', () => {
   informationH2.classList.toggle('active');
   const contentDiv = document.querySelector('.content');
@@ -672,9 +719,38 @@ informationH2.addEventListener('click', () => {
     signature.id = 'signature-image';
     contentDiv.innerHTML = ''; // clear the content area
     contentDiv.appendChild(signature);
+
+    // Append dropdown menus
+    const infoItems = document.querySelectorAll('.information span h3');
+    infoItems.forEach((item) => {
+      if (item.classList.contains('active')) {
+        // Append dropdown menu for active item
+        const dropdownMenu = document.createElement('ul');
+        dropdownMenu.className = 'dropdown-menu';
+        contentDiv.appendChild(dropdownMenu);
+
+        // Add list items to the dropdown menu
+        const listItem1 = document.createElement('li');
+        listItem1.textContent = 'Item 1';
+        dropdownMenu.appendChild(listItem1);
+
+        const listItem2 = document.createElement('li');
+        listItem2.textContent = 'Item 2';
+        dropdownMenu.appendChild(listItem2);
+
+        // Add more list items as needed
+      }
+    });
   } else {
     portfolioH2.style.display = 'block';
     inspirationH2.style.display = 'block';
+    infoItems.forEach((h3) => h3.classList.remove('active'));
+    const signature = document.querySelector('#signature-image');
+    if (signature) {
+      signature.remove(); // Remove the signature if it exists
+    }
+          item.classList.remove('active');
+
     contentDiv.innerHTML = ''; // clear the content area
   }
 });
@@ -682,39 +758,130 @@ informationH2.addEventListener('click', () => {
 const infoItems = document.querySelectorAll('.information span h3');
 const contentArea = document.querySelector('.content');
 
+
 infoItems.forEach((item) => {
-  item.addEventListener('click', (e) => {
-      if (item.classList.contains('active')) {
-          // If the category is already active, reset the state
-          item.classList.remove('active');
-          contentArea.innerHTML = ''; // clear the content area
-          const signature = document.createElement('img');
-          signature.src = 'signature.png';
-          signature.alt = 'Sophia Dombrowski Signature';
-          signature.id = 'signature-image';
-          contentArea.appendChild(signature);
-      } else {
-          // Remove active class from all h3 elements
-          infoItems.forEach((h3) => h3.classList.remove('active'));
-          // Toggle active class on the clicked element
-          item.classList.add('active');
-          contentArea.innerHTML = ''; // clear the content area
-          // Get the info type from the clicked element
-          const infoType = item.getAttribute('data-info');
-          if (infoType === 'resume') {
-            const resume = document.createElement('img');
-            resume.src = 'resume2024.jpg';
-            resume.alt = 'Resume 2024';
-            resume.id = 'resume';
-            contentArea.appendChild(resume);
-          
-            const downloadButton = document.createElement("button");
-            downloadButton.textContent = "Download Resume";
-            downloadButton.className = "download-button";
-            contentArea.appendChild(downloadButton);
-          }
+  item.addEventListener('click', (event) => {
+    const item = event.currentTarget;
+
+    if (item.classList.contains('active')) {
+      // If the category is already active, reset the state
+      item.classList.remove('active');
+      contentDiv.innerHTML = ''; // clear the content area
+      const signature = document.createElement('img');
+      signature.src = 'signature.png';
+      signature.alt = 'Sophia Dombrowski Signature';
+      signature.id = 'signature-image';
+      contentDiv.appendChild(signature);
+    } else {
+      // Remove active class from all h3 elements
+      infoItems.forEach((h3) => h3.classList.remove('active'));
+      // Toggle active class on the clicked element
+      item.classList.add('active');
+      contentDiv.innerHTML = ''; // clear the content area
+      // Get the info type from the clicked element
+      const infoType = item.getAttribute('data-info');
+
+      if (infoType === 'resume') {
+        const resume = document.createElement('img');
+        resume.src = 'resume2024.jpg';
+        resume.alt = 'Resume Dombrowski 2024';
+        resume.id = 'resume';
+        contentDiv.appendChild(resume);
+
+        const downloadButton = document.createElement("button");
+        downloadButton.textContent = "Download Resume";
+        downloadButton.className = "download-button";
+        contentDiv.appendChild(downloadButton);
+      } else if (infoType === 'personal-statement') {
+        appendPersonalStatement();
+      } else if (infoType === 'contact') {
+        // Append dropdown menu for contact
+        const contactDropdown = document.createElement('ul');
+        contactDropdown.className = 'dropdown-menu';
+        contactDropdown.innerHTML = `
+          <li id="email" >EMAIL</li>
+          <ul class="sub-menu">
+            <li id="personal-email" >PERSONAL:  <a href="mailto:sophiaviegh14@gmail.com">sophiaviegh14@gmail.com</a></li>
+            <li id= "school-email" >SCHOOL:  <a href="mailto:dombs723@newschool.edu"> dombs723@newschool.edu</a></li>
+          </ul>
+          <li id="phone" >PHONE</li>
+          <ul class="sub-menu">
+          <li id="phone-call" >CALL:  
+          <a href="tel:860-990-4904">(860)-990-4904</a></li>
+          <li id="phone-text" >TEXT:   
+          <a href="sms:860-990-4904">(860)-990-4904</a></li>
+          </ul>
+          <li id="socials" >SOCIALS</li>
+          <ul class="sub-menu">
+            <li id="linkedin" >LINKEDIN:  <a href= "https://www.linkedin.com/in/sophia-dombrowski-5ba3422b9"> Sophia Dombrowski</a></li>
+            <li id="instagram"> INSTAGRAM: <a href="https://www.instagram.com/sophs_smudges/"> @sophs_smudges</a></li>
+          </ul>
+        `;
+        contentDiv.appendChild(contactDropdown);
+
+        contactDropdown.querySelectorAll('li').forEach((menuItem) => {
+          menuItem.addEventListener('click', () => {
+            const subMenu = menuItem.nextElementSibling;
+            toggleSubMenu(menuItem);
+          });
+        });
       }
-  });
+    }
+  }, false);
 });
+
+// Assuming you have a function to toggle the sub-menu
+function toggleSubMenu(liElement) {
+  // Toggle the sub-menu
+  liElement.nextElementSibling.classList.toggle('active');
+
+  // Add the active class to the li element
+  liElement.classList.toggle('active');
+}
+
+
+
+function appendPersonalStatement() {
+  const personalStatementText = 'As a current Communication Design student at the New School, I explore the dynamic interaction between culture, technology, and art within design.\nWith a background in typography, graphic design, and interaction; I aim to deliver engaging solutions that excel both aesthetically and conceptually.\nMy creative problem solving, empathy, and eagerness for challenges, positions me to adapt new skill sets as needed.\nI am driven to make a positive contribution to the design field that constructs culture and everyday lifestyle globally.';
+
+  const personalStatement = document.createElement('p');
+  contentArea.appendChild(personalStatement);
+
+  const pElement = document.querySelector('.content p');
+  pElement.classList.add('typing-animation');
+
+  let words = personalStatementText.split(/\s+/); // Split text into words
+
+  words.forEach((word, index) => {
+    if (index > 0) {
+      const space = document.createElement('span');
+      space.textContent = ' ';
+      space.classList.add('space');
+      pElement.appendChild(space);
+    }
+
+    const wordSpan = document.createElement('span');
+    wordSpan.textContent = word;
+    wordSpan.classList.add('word');
+    pElement.appendChild(wordSpan);
+  });
+
+  let charIndex = 0;
+  const typingInterval = setInterval(() => {
+    const wordSpans = pElement.querySelectorAll('.word');
+    if (charIndex < wordSpans.length) {
+      const wordSpan = wordSpans[charIndex];
+      wordSpan.classList.add('typed');
+      charIndex++;
+    } else {
+      clearInterval(typingInterval);
+    }
+  }, 50); // adjust the interval for desired typing speed
+}
+
+
+
+
+
 
 

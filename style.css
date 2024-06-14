@@ -130,19 +130,35 @@ h1 {
 }
 
 .portfolio h2, .inspiration h2, .information h2{
-    margin-top: 55px;
+    margin-top: 57px;
     text-align: center;
-    /* color:white; */
+    color:white;
 }
 
 .portfolio:hover,
 .inspiration:hover,
-.information:hover,
-.portfolio.active,
-.inspiration.active,
-.information.active {
+.information:hover {
   background-color: white;
   color: black;
+}
+
+.portfolio:hover h2,
+.inspiration:hover h2,
+.information:hover h2 {
+  color: black;
+}
+
+.portfolio.active,
+.inspiration.active,
+.information.active{
+    background-color: black;
+    color: white;
+}
+
+.portfolio h2.active,
+.inspiration h2.active,
+.information h2.active{
+    color:white;
 }
   
 .portfolio{
@@ -365,13 +381,13 @@ h3{
 
 @keyframes fade-in-out {
     0% {
-      opacity: .15; /* start with 0 opacity */
+      opacity: .25; /* start with 0 opacity */
     }
     50% {
       opacity: 1; /* reach 1 opacity at the midpoint */
     }
     100% {
-      opacity: .15; /* end with 0 opacity */
+      opacity: .25; /* end with 0 opacity */
     }
   }
 
@@ -379,9 +395,6 @@ h3{
     letter-spacing:.5em;
   }
 
-.content p{
-    font-family:
-}
 
 #resume{
    height: 80vh;
@@ -414,3 +427,128 @@ h3{
 .download-button:hover{
     color: #accb82;
 }
+
+.content p {
+    font-size: 1.5em;
+    line-height: 1.2em;
+    margin: 0;
+    padding: 0;
+    color: transparent;
+    font-family: 'teko', sans-serif;
+    width: 50vw;
+    position: absolute; /* add this to take the element out of the flow */
+    top: 50%; /* move the element 50% down from the top */
+    left: 50%; /* move the element 50% from the left */
+    transform: translate(-50%, -50%); /* move the element back up and left by half of its own width and height */
+    overflow-wrap: break-word;
+    white-space: pre-wrap; /* allow wrapping */
+    word-break: break-all;
+    max-width: 40ch;
+    hyphens:auto;
+
+}
+
+.content p span{
+    display: inline;
+    animation: typing 1s ease-out forwards;
+}
+
+  .content p span.typed {
+    color:white;
+  }
+
+  .typed{
+    animation: typing 1s ease-out forwards;
+}
+  
+  @keyframes typing {
+    from {
+      opacity: 0;
+      transform: translateX(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .word {
+    white-space: nowrap;
+  }
+
+  #welcome-message{
+    font-family: 'teko', sans-serif;
+    color: white;
+    position:absolute;
+    font-size: 2em;
+    text-align:right;
+    max-width: 52ch;
+    margin-right:0;
+  }
+
+  #welcome{
+    font-size:3em;
+    text-align:right;
+    margin-bottom: 0; 
+    padding:0; 
+}
+
+  .inspiration.active:hover h2{
+    color:white;
+  }
+
+
+
+  .dropdown-menu {
+    list-style-type: none;
+    padding: 0;
+    display: contents;
+  }
+  
+  /* Style for the dropdown menu items */
+  .dropdown-menu li {
+    cursor: pointer;
+    color: white;
+    display: block;
+    border: solid 2px white;
+    padding: 10px;
+    margin: 10px;
+    position: relative;
+    font-family: 'teko', sans-serif;
+    font-size: 1.2em;
+    font-weight: 400;
+    height: fit-content;
+    grid-column: 1 / -1;
+}
+
+#email:hover, #phone:hover, #socials:hover,
+#email.active, #phone.active, #socials.active{
+    color: black;
+    background-color: white;
+}
+
+  .sub-menu {
+    display: none;
+    list-style-type: none;
+    padding-left: 40px;
+    margin-top: -2px; /* Add this line */
+    padding-top: 10px; 
+    grid-column: 1 / -1;
+  }
+  
+  /* Style for active sub-menus */
+  .sub-menu.active {
+    display: block;
+  }
+
+  li a{
+    text-decoration: none;
+    color: white;
+    letter-spacing: .05em;
+    font-size: 0.85em;
+  }
+
+  li a:hover{
+    text-decoration: underline;
+    color: white;
+  }
